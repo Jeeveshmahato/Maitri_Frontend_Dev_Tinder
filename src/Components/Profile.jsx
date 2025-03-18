@@ -14,7 +14,7 @@ const Profile = () => {
       const res = await axios.get(BaseUrl + "/feed", {
         withCredentials: true,
       });
-      console.log("Feed fetched successfully:", res.data);
+      // console.log("Feed fetched successfully:", res.data);
       dispatch(addUserFeed(res.data));
     } catch (error) {
       console.error("Error getting feed:", error.message);
@@ -29,7 +29,7 @@ const Profile = () => {
       <div className=" flex  items-center justify-center gap-5 my-3">
         {feedUsers?.length > 0 ? (
           feedUsers.map((res) => {
-            return <UserCard key={res.id} {...res} />;
+            return <UserCard key={res.id} users={{ ...res }} />;
           })
         ) : (
           <p>Loading or no users available</p>
