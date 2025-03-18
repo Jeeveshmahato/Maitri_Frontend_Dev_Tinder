@@ -1,18 +1,22 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { addLoginDetails } from "../Utiles/loginSlice";
+import { addLoginUser } from "../Utiles/userAuthSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { BaseUrl } from "../Utiles/Constants";
 
 const Login = () => {
   const [email, setEmail] = useState("Rounit@gmail.com");
   const [password, setPassword] = useState("Rounit");
+  const [errorCred, setErrorCred] = useState("")
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/login",
+        BaseUrl + "/login",
         {
           email,
           password,
@@ -21,10 +25,12 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      dispatch(addLoginDetails(response.data));
-      console.log(response.data);
+      dispatch(addLoginUser(response.data));
+      // console.log(response.data);
+      navigate("/");
     } catch (error) {
-      console.log(error.message);
+      setErrorCred(error.response.data);
+      // console.log(error);
     }
   };
   return (
@@ -111,6 +117,7 @@ const Login = () => {
                       </div>
                     </div>
                   </div>
+                  <p className="text-red-600 mt-3">{errorCred}</p>
                   <div class="mt-4 flex items-center justify-between">
                     <label class="flex items-center gap-2">
                       <input
