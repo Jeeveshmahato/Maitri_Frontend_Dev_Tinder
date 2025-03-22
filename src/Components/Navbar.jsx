@@ -9,9 +9,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const loginedUser = useSelector(
-    (store) => store?.userAuth?.loginDetails
-  );
+  const loginedUser = useSelector((store) => store?.userAuth?.loginDetails);
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
@@ -62,7 +60,10 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/pendingrequests">Pending Requests</Link>
+              </li>
+              <li>
+                <Link to="/connections">Connections</Link>
               </li>
               <li>
                 <Link onClick={(e) => handleLogout(e)}>Logout</Link>

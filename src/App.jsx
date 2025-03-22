@@ -6,6 +6,9 @@ import Navbar from "./Components/Navbar";
 import Profile from "./Components/Profile";
 import EditProfile from "./Components/EditProfile";
 import Test from "./Components/Test";
+import FeedProfile from "./Components/FeedProfile";
+import PendingRequest from "./Components/PendingRequest";
+import Connections from "./Components/Connections";
 
 const App = () => {
   return (
@@ -13,10 +16,12 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}>
-            <Route path="/" element={<Profile />} />
+            <Route path="/" element={<FeedProfile />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/editProfile" element={<EditProfile />} />
+            <Route path="/editProfile" element={<Profile />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/pendingrequests" element={<PendingRequest />} />
+            <Route path="/connections" element={<Connections />} />
           </Route>
         </Routes>
       </BrowserRouter>
