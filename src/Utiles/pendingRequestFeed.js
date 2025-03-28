@@ -9,8 +9,10 @@ const pendingRequestSlice = createSlice({
     addPendingRequests: (state, action) => {
       state.pendingRequests = action.payload;
     },
-    removePendingRequests: (state) => {
-      state.pendingRequests = null;
+    removePendingRequests: (state, action) => {
+      state.pendingRequests = state.pendingRequests.filter(
+        (res) => res._id !== action.payload
+      );
     },
   },
 });

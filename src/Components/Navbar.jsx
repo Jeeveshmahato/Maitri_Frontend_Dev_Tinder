@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BaseUrl } from "../Utiles/Constants";
@@ -11,17 +11,28 @@ const Navbar = () => {
 
   const loginedUser = useSelector((store) => store?.userAuth?.loginDetails);
   const handleLogout = async (e) => {
-    e.preventDefault();
     try {
-      await axios.post(BaseUrl + "/logout", {
-        withCredentials: true,
-      });
+      await axios.post(
+        BaseUrl + "/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       dispatch(removeLoginUser());
       navigate("/login");
     } catch (error) {
       console.log(error.message);
     }
   };
+  const [update, setUpdate] = useState(false);
+
+useEffect(() => {
+  setUpdate(!update);
+}, [loginedUser]);
+
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
@@ -45,7 +56,7 @@ const Navbar = () => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src={loginedUser?.img_Url}
+                  src={loginedUser?.img_Url || "default-avatar-url"}
                 />
               </div>
             </div>

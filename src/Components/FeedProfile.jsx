@@ -20,6 +20,7 @@ const FeedProfile = () => {
       console.error("Error getting feed:", error.message);
     }
   };
+
   useEffect(() => {
     getFeed();
   }, []);
@@ -28,9 +29,7 @@ const FeedProfile = () => {
     <>
       <div className=" flex  items-center justify-center gap-5 my-3">
         {feedUsers?.length > 0 ? (
-          feedUsers.map((res) => {
-            return <UserCard key={res.id} users={{ ...res }} />;
-          })
+          <UserCard  users={feedUsers[0]} />
         ) : (
           <p>Loading or no users available</p>
         )}
