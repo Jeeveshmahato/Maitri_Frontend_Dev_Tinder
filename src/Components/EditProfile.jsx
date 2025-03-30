@@ -9,15 +9,32 @@ const EditProfile = ({ user }) => {
   const dispatch = useDispatch();
 
   // console.log(user);
-  const [firstName, setFirstName] = useState(user?.firstName );
-  const [lastName, setLastName] = useState(user?.lastName );
-  const [img_Url, setimg_Url] = useState(user?.img_Url );
-  const [age, setAge] = useState(user?.age );
-  const [gender, setGender] = useState(user?.gender);
-  const [skills, setSkills] = useState(user?.skills );
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
+  const [img_Url, setimg_Url] = useState(user?.img_Url || "");
+  const [age, setAge] = useState(user?.age || "");
+  const [gender, setGender] = useState(user?.gender || "");
+  const [skills, setSkills] = useState(user?.skills || []);
+  const [newSkills, setNewSkills] = useState("");
   const [errorr, setErrorr] = useState("");
   const [showTaste, setShowTaste] = useState(false);
-
+  const addSkills = (e) => {
+    e.preventDefault();
+    if (newSkills.trim() && !skills.includes(newSkills)) {
+      setSkills((preSkills) => [...preSkills, newSkills]);
+      // setSkills([newSkills, ...skills]);
+      setNewSkills("");
+    }
+  };
+  const editSkill = (index, skill) => {
+    const newskillsArray = [...skills];
+    newskillsArray[index] = skill;
+    setSkills(newskillsArray);
+  };
+  const removeSkill = (index) => {
+    setSkills((preSkills) => preSkills.filter((_, i) => i !== index));
+    // setSkills(skills.filter((_, i) => i !== index));
+  };
   const update = async (e) => {
     e.preventDefault();
     try {
@@ -35,7 +52,7 @@ const EditProfile = ({ user }) => {
           withCredentials: true,
         }
       );
-      // console.log("Profile updated successfully:", res.data);
+      console.log("Profile updated successfully:", res.data);
       dispatch(addLoginUser(res.data));
       setShowTaste(true);
       setTimeout(() => {
@@ -43,11 +60,20 @@ const EditProfile = ({ user }) => {
       }, 3000);
     } catch (error) {
       console.error("Error:", error.response);
-      setErrorr(error.response.data);
+      setErrorr(error.response?.data);
     }
   };
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName || "");
+      setLastName(user.lastName || "");
+      setimg_Url(user.img_Url || "");
+      setAge(user.age || "");
+      setGender(user.gender || "");
+      setSkills(user.skills || []); // Fix: Ensure skills array is properly set
+    }
+  }, [user]);
   return (
     <>
       {user && (
@@ -150,7 +176,7 @@ const EditProfile = ({ user }) => {
                       </label>
                     </div>
                     <div class="flex items-center">
-                      <input
+                      {/* <input
                         type="String"
                         name="img_Url"
                         value={gender}
@@ -158,7 +184,19 @@ const EditProfile = ({ user }) => {
                           setGender(e.target.value);
                         }}
                         class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
-                      />
+                      /> */}
+                      <select
+                        className="select mt-2 select-bordered w-full max-w-xs"
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
+                      >
+                        <option value="" disabled>
+                          Select Gender
+                        </option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -171,7 +209,44 @@ const EditProfile = ({ user }) => {
                         Skills
                       </label>
                     </div>
-                    <div className="flex flex-col items-start mt-2">
+                    <div className="flex flex-col  items-center mt-2">
+                      {skills &&
+                        skills.map((skill, index) => (
+                          <div className=" flex  w-full">
+                            <input
+                              key={index}
+                              type="text"
+                              value={skill}
+                              onChange={(e) => editSkill(index, e.target.value)}
+                              class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
+                            />
+                            <button
+                            className=" hover:border border-red-600 rounded-xl py-2 px-6"
+                              type="button"
+                              onClick={() => removeSkill(index)}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ))}
+                      <div className="flex gap-2 mt-4 w-full ">
+                        <input
+                          className=" border border-white w-full text-white"
+                          type="string"
+                          value={newSkills}
+                          onChange={(e) => setNewSkills(e.target.value)}
+                        />
+                        <button
+                          type="button"
+                          onClick={addSkills}
+                          className="w-full hover:cursor-pointer hover:border border-amber-100"
+                        >
+                          Add Skill
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* <div className="flex flex-col items-start mt-2">
                       {skills &&
                         skills.map((skill, index) => (
                           <input
@@ -186,7 +261,7 @@ const EditProfile = ({ user }) => {
                             class="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
                           />
                         ))}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -206,6 +281,7 @@ const EditProfile = ({ user }) => {
           <div className="w-full flex items-center justify-center">
             <UserCard
               users={{ firstName, lastName, img_Url, age, gender, skills }}
+              showButton={false}
             />
           </div>
           {showTaste && (

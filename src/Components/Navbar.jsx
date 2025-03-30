@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BaseUrl } from "../Utiles/Constants";
 import { removeLoginUser } from "../Utiles/userAuthSlice";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -29,24 +30,32 @@ const Navbar = () => {
   };
   const [update, setUpdate] = useState(false);
 
-useEffect(() => {
-  setUpdate(!update);
-}, [loginedUser]);
+  useEffect(() => {
+    setUpdate(!update);
+  }, [loginedUser]);
 
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl">
-            daisyUI
+          <Link to="/" className=" flex gap-2   items-center">
+            <img
+              className=" h-[40px] w-[40px] rounded-full"
+              src={logo}
+              alt=""
+            />
+            <h3  className=" btn-ghost text-xl">
+              Maitri
+            </h3>
           </Link>
+          {/* <p className="mt-2">Bond Beyond Boundaries.</p> */}
         </div>
         <div className="flex items-center gap-2">
-          <input
+          {/* <input
             type="text"
             placeholder="Search"
             className="input input-bordered w-24 md:w-auto"
-          />
+          /> */}
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -56,7 +65,10 @@ useEffect(() => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src={loginedUser?.img_Url || "default-avatar-url"}
+                  src={
+                    loginedUser?.img_Url ||
+                    "https://images.unsplash.com/photo-1587778082149-bd5b1bf5d3fa"
+                  }
                 />
               </div>
             </div>

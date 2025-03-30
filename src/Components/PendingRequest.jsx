@@ -50,7 +50,7 @@ const PendingRequest = () => {
 
   return (
     <>
-      <div className=" flex gap-3">
+      <div className=" flex flex-wrap gap-3">
         {pendingUsers &&
           pendingUsers.map((res) => {
             const { firstName, lastName, img_Url, skills } = res.fromUserId;
@@ -69,10 +69,10 @@ const PendingRequest = () => {
                         </span>
                       ))}
                   </div>
-                  <p>
+                  {/* <p>
                     A card component has a figure, a body part, and inside body
                     there are title and actions parts
-                  </p>
+                  </p> */}
                   <div className="card-actions">
                     <button
                       className="btn bg-red-600"

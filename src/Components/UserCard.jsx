@@ -4,7 +4,7 @@ import { BaseUrl } from "../Utiles/Constants";
 import { useDispatch } from "react-redux";
 import { removeUserFeed } from "../Utiles/userFeed";
 
-const userCard = ({ users }) => {
+const userCard = ({ users, showButton }) => {
   const dispatch = useDispatch();
   const handlesendRequest = async (status, _id) => {
     try {
@@ -41,26 +41,28 @@ const userCard = ({ users }) => {
                 return <span key={skill}>{skill}</span>;
               })}
           </div>
-          <div className="card-actions  justify-end">
-            <button
-              className="btn bg-red-600"
-              onClick={(e) => {
-                e.preventDefault();
-                handlesendRequest("ignored", _id);
-              }}
-            >
-              Ignore
-            </button>
-            <button
-              className="btn bg-pink-700"
-              onClick={(e) => {
-                e.preventDefault();
-                handlesendRequest("interested", _id);
-              }}
-            >
-              Interested
-            </button>
-          </div>
+          {showButton && (
+            <div className="card-actions  justify-end">
+              <button
+                className="btn bg-red-600"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlesendRequest("ignored", _id);
+                }}
+              >
+                Ignore
+              </button>
+              <button
+                className="btn bg-pink-700"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlesendRequest("interested", _id);
+                }}
+              >
+                Interested
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>

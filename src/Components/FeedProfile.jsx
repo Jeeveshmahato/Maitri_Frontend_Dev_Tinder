@@ -29,7 +29,7 @@ const FeedProfile = () => {
     <>
       <div className=" flex  items-center justify-center gap-5 my-3">
         {feedUsers?.length > 0 ? (
-          <UserCard  users={feedUsers[0]} />
+          <UserCard  users={feedUsers[0]} showButton={true} />
         ) : (
           <p>Loading or no users available</p>
         )}

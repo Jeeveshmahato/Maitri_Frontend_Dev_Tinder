@@ -31,7 +31,7 @@ const Connections = () => {
     );
   return (
     <>
-      <div className="flex gap-3 items-center justify-center">
+      <div className="flex gap-3 flex-wrap items-center justify-center">
         {connectionUsers &&
           connectionUsers.map((res) => {
             const { firstName, lastName, img_Url, skills } = res;
@@ -50,13 +50,11 @@ const Connections = () => {
                         </span>
                       ))}
                   </div>
-                  <p>
+                  {/* <p>
                     A card component has a figure, a body part, and inside body
                     there are title and actions parts
-                  </p>
-                  <div className="card-actions">
-                    <button className="btn btn-primary">Buy Now</button>
-                  </div>
+                  </p> */}
+                  
                 </div>
               </div>
             );
