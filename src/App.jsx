@@ -2,13 +2,14 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
 import Login from "./Components/Login";
-import Navbar from "./Components/Navbar";
+// import Navbar from "./Components/Navbar";
 import Profile from "./Components/Profile";
-import EditProfile from "./Components/EditProfile";
+// import EditProfile from "./Components/EditProfile";
 import Test from "./Components/Test";
 import FeedProfile from "./Components/FeedProfile";
 import PendingRequest from "./Components/PendingRequest";
 import Connections from "./Components/Connections";
+import NotFound from "./Components/NotFound";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/pendingrequests" element={<PendingRequest />} />
             <Route path="/connections" element={<Connections />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -21,7 +21,7 @@ const Home = () => {
       });
       dispatch(addLoginUser(res.data));
     } catch (error) {
-      if (error.status == 401) {
+      if (error) {
         navigate("/login");
       }
       
@@ -33,6 +33,12 @@ const Home = () => {
       getUser();
     }
   }, []);
+  
+  useEffect(() => {
+    if (!loginedUser) {
+      navigate("/login");
+    }
+  }, [loginedUser, navigate]);
 
   return (
     <>

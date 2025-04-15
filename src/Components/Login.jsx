@@ -40,7 +40,6 @@ const Login = () => {
     }
   };
   const handleSignup = async () => {
-
     console.log("signup clicked");
     // e.preventDefault();
 
@@ -87,7 +86,7 @@ const Login = () => {
                   />
                 </svg>
               </div>
-              Tinder Dev
+              Maitri
             </div>
           </a>
           <div class="relative mt-12 w-full max-w-lg sm:mt-10">
