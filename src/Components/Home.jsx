@@ -34,11 +34,11 @@ const Home = () => {
     }
   }, []);
   
-  useEffect(() => {
-    if (!loginedUser) {
-      navigate("/login");
-    }
-  }, [loginedUser, navigate]);
+  // useEffect(() => {
+  //   if (!loginedUser) {
+  //     navigate("/login");
+  //   }
+  // }, [loginedUser, navigate]);
 
   return (
     <>
