@@ -49,7 +49,7 @@ const UserCard = ({ user, onSwipe }) => {
         <div className="card bg-base-100 w-full h-full shadow-lg">
           <figure className="px-4 pt-4">
             <img
-              className="w-full h-96 object-cover rounded-xl"
+              className="w-full h-96 object-contain rounded-xl"
               src={img_Url}
               alt="Profile"
             />
