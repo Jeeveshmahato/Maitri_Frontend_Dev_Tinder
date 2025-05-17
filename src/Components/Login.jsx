@@ -17,7 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    console.log("login clicked");
+    // console.log("login clicked");
 
     e.preventDefault();
     try {

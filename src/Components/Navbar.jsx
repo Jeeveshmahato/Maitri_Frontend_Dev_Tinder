@@ -44,9 +44,7 @@ const Navbar = () => {
               src={logo}
               alt=""
             />
-            <h3  className=" btn-ghost text-xl">
-              Maitri
-            </h3>
+            <h3 className=" btn-ghost text-xl">Maitri</h3>
           </Link>
           {/* <p className="mt-2">Bond Beyond Boundaries.</p> */}
         </div>
@@ -87,6 +85,9 @@ const Navbar = () => {
               </li>
               <li>
                 <Link to="/connections">Connections</Link>
+              </li>
+              <li>
+                <Link to="/membership">Membership</Link>
               </li>
               <li>
                 <Link onClick={(e) => handleLogout(e)}>Logout</Link>
