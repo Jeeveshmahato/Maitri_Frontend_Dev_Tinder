@@ -4,7 +4,7 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 // import Navbar from "./Components/Navbar";
 import Profile from "./Components/Profile";
-// import EditProfile from "./Components/EditProfile";
+import EditProfile from "./Components/EditProfile";
 import Test from "./Components/Test";
 import FeedProfile from "./Components/FeedProfile";
 import PendingRequest from "./Components/PendingRequest";

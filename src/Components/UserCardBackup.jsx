@@ -4,7 +4,7 @@ import { BaseUrl } from "../Utiles/Constants";
 import { useDispatch } from "react-redux";
 import { removeUserFeed } from "../Utiles/userFeed";
 
-const userCard = ({ users, showButton }) => {
+const UserCardBackup = ({ users, showButton }) => {
   const dispatch = useDispatch();
   const handlesendRequest = async (status, _id) => {
     try {
@@ -20,7 +20,7 @@ const userCard = ({ users, showButton }) => {
       console.log(error);
     }
   };
-  console.log(users);
+  // console.log(users);
   const { _id, firstName, lastName, skills, age, gender, img_Url } = users;
   return (
     <>
@@ -69,4 +69,4 @@ const userCard = ({ users, showButton }) => {
   );
 };
 
-export default userCard;
+export default UserCardBackup;

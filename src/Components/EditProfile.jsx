@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UserCard from "./UserCard";
 import axios from "axios";
 import { BaseUrl } from "../Utiles/Constants";
 import { addLoginUser } from "../Utiles/userAuthSlice";
+import UserCardBackup from "./UserCardBackup";
 
 const EditProfile = ({ user }) => {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const EditProfile = ({ user }) => {
           withCredentials: true,
         }
       );
-      console.log("Profile updated successfully:", res.data);
+      // console.log("Profile updated successfully:", res.data);
       dispatch(addLoginUser(res.data));
       setShowTaste(true);
       setTimeout(() => {
@@ -279,7 +279,7 @@ const EditProfile = ({ user }) => {
             </form>
           </div>
           <div className="w-full flex items-center justify-center">
-            <UserCard
+            <UserCardBackup
               users={{ firstName, lastName, img_Url, age, gender, skills }}
               showButton={false}
             />
