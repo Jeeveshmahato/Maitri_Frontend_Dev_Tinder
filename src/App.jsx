@@ -11,6 +11,7 @@ import PendingRequest from "./Components/PendingRequest";
 import Connections from "./Components/Connections";
 import NotFound from "./Components/NotFound";
 import Membership from "./Components/Membership";
+import Chat from "./Components/Chat";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/pendingrequests" element={<PendingRequest />} />
             <Route path="/connections" element={<Connections />} />
             <Route path="/membership" element={<Membership/>}/>
+            <Route path="/chat/:userID" element ={<Chat/>}/>
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
