@@ -19,7 +19,7 @@ const Chat = () => {
     });
     socket.on("messageReceived", ({ firstName, lastName, text }) => {
       console.log(firstName + " : " + text);
-      setMessage[(message) => [...message, { firstName, lastName, text }]];
+      setMessage((message) => [...message, { firstName, lastName, text }]);
     });
     return () => {
       socket.disconnect();
