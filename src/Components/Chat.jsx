@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../Utiles/Socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BaseUrl } from "../Utiles/Constants";
 
 const Chat = () => {
   const { userID } = useParams();
@@ -9,6 +11,25 @@ const Chat = () => {
   const [message, setMessage] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const loginuser = useSelector((s) => s?.userAuth?.loginDetails);
+  const fetchChatMessages = async () => {
+    const chat = await axios.get(BaseUrl + "/chat/" + userID, {
+      withCredentials: true,
+    });
+    console.log(chat.data.messages);
+    const chatMessages = chat?.data.messages.map((msg) => {
+      const { senderId, text } = msg;
+      return {
+        firstName: senderId?.firstName,
+        lastName: senderId?.lastName,
+        text,
+      };
+    });
+    setMessage(chatMessages);
+  };
+  useEffect(() => {
+    fetchChatMessages();
+  }, []);
+
   useEffect(() => {
     if (!loginuser._id) return;
     const socket = createSocketConnection();
@@ -19,7 +40,7 @@ const Chat = () => {
     });
     socket.on("messageReceived", ({ firstName, lastName, text }) => {
       console.log(firstName + " : " + text);
-      setMessage((message) => [...message, { firstName, lastName, text }]);
+     setMessage((prevMessages) => [...prevMessages, { firstName, lastName, text }]);
     });
     return () => {
       socket.disconnect();
