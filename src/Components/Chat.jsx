@@ -4,6 +4,8 @@ import { createSocketConnection } from "../Utiles/Socket";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BaseUrl } from "../Utiles/Constants";
+import moment from "moment";
+import "moment-timezone";
 
 const Chat = () => {
   const { userID } = useParams();
@@ -17,11 +19,12 @@ const Chat = () => {
     });
     console.log(chat.data.messages);
     const chatMessages = chat?.data.messages.map((msg) => {
-      const { senderId, text } = msg;
+      const { senderId, text, firstName, lastName, img_Url } = msg;
       return {
-        firstName: senderId?.firstName,
-        lastName: senderId?.lastName,
+        firstName,
+        lastName,
         text,
+        img_Url,
       };
     });
     setMessage(chatMessages);
@@ -38,9 +41,13 @@ const Chat = () => {
       userId: loginuser._id,
       targetUserId: userID,
     });
-    socket.on("messageReceived", ({ firstName, lastName, text }) => {
+    socket.on("messageReceived", ({ firstName, lastName, text, img_Url }) => {
       console.log(firstName + " : " + text);
-     setMessage((prevMessages) => [...prevMessages, { firstName, lastName, text }]);
+      setMessage((prevMessages) => [
+        ...prevMessages,
+        { firstName, lastName, text, img_Url },
+      ]);
+      console.log(sendMessage)
     });
     return () => {
       socket.disconnect();
@@ -55,28 +62,34 @@ const Chat = () => {
       userId: loginuser._id,
       targetUserId: userID,
       text: newMessage,
+      img_Url: loginuser.img_Url,
     });
     setNewMessage("");
   };
   return (
     <div className="max-w-md mx-auto min-h-72 p-4 border border-b-blue-600 my-10 rounded-lg shadow">
       {message.map((msg, index) => {
+        console.log(msg);
         return (
           <div key={index} className="chat chat-start">
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS chat bubble component"
-                  src="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
+                  src={msg.img_Url}
                 />
               </div>
             </div>
             <div className="chat-header">
               {`${msg.firstName}  ${msg.lastName}`}
-              <time className="text-xs opacity-50">12:45</time>
+              <time className="text-xs opacity-50">
+                {moment(msg.createdAt)
+                  .tz("Asia/Kolkata")
+                  .format("DD/MM/YYYY hh:mm A")}
+              </time>
             </div>
             <div className="chat-bubble">{msg.text}</div>
-            <div className="chat-footer opacity-50">Delivered</div>
+            {/* <div className="chat-footer opacity-50">Delivered</div> */}
           </div>
         );
       })}
